@@ -3,54 +3,787 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Among Us • Discord</title>
+<title>Among Us | Discord</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#090b12;color:#fff}
-body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,#4b1018 0 2px,transparent 3px),radial-gradient(circle at 80% 30%,#26354e 0 1px,transparent 2px),radial-gradient(circle at 55% 75%,#fff 0 1px,transparent 2px);background-size:180px 180px;opacity:.45;z-index:-1}
-nav{display:flex;justify-content:space-between;align-items:center;padding:22px 8%;background:#10131d;border-bottom:1px solid #252a39;position:sticky;top:0}
-.logo{font-weight:900;font-size:22px}.logo span{color:#ff4655}
-nav a{color:#ddd;text-decoration:none;margin-left:22px}nav a:hover{color:#ff4655}
-.hero{text-align:center;padding:100px 20px 80px}.sus{font-size:75px;margin-bottom:15px}
-h1{font-size:clamp(42px,8vw,82px);margin:0 0 18px}.hero p{font-size:20px;color:#b8bdca;max-width:650px;margin:0 auto 35px}
-.btn{display:inline-block;background:#5865f2;color:#fff;text-decoration:none;font-weight:800;padding:16px 28px;border-radius:12px;box-shadow:0 8px 30px #5865f255}.btn:hover{transform:translateY(-2px)}
-section{max-width:950px;margin:auto;padding:60px 20px}.card{background:#121621;border:1px solid #282e3e;border-radius:18px;padding:28px;margin-top:20px}
-h2{font-size:34px;margin-top:0}.rule{padding:14px 0;border-bottom:1px solid #252a36}.rule:last-child{border:0}.rule b{color:#ff5968}
-footer{text-align:center;padding:35px;color:#777;border-top:1px solid #252a39}
-@media(max-width:600px){nav{padding:18px 5%}nav a{margin-left:10px;font-size:14px}.hero{padding-top:65px}}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #090b12;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* =========================
+   SPADAJĄCE LUDZIKI AMONG US
+========================= */
+
+.falling-heads {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.amongus {
+    position: absolute;
+    top: -120px;
+    width: 46px;
+    height: 62px;
+    background: var(--color);
+    border-radius: 23px 23px 15px 15px;
+    box-shadow:
+        inset -9px 0 rgba(0,0,0,0.20),
+        inset 5px 0 rgba(255,255,255,0.08),
+        0 7px 18px rgba(0,0,0,0.4);
+
+    animation: amongusFall linear infinite;
+    opacity: 0.7;
+}
+
+/* plecak */
+.amongus::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 23px;
+    width: 15px;
+    height: 29px;
+    background: var(--color);
+    border-radius: 8px 2px 2px 8px;
+    box-shadow:
+        inset 3px 0 rgba(0,0,0,0.15),
+        -2px 2px rgba(0,0,0,0.08);
+}
+
+/* wizjer */
+.amongus::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 15px;
+    width: 26px;
+    height: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #d9f8ff 22%,
+            #8bd9ec 52%,
+            #438ca5 100%
+        );
+
+    border-radius: 12px 14px 9px 9px;
+
+    border: 2px solid rgba(0,0,0,0.25);
+
+    box-shadow:
+        inset 5px 2px rgba(255,255,255,0.65),
+        inset -4px -2px rgba(0,0,0,0.12);
+}
+
+/* nóżki */
+.leg {
+    position: absolute;
+    bottom: -11px;
+    width: 18px;
+    height: 20px;
+    background: var(--color);
+    border-radius: 0 0 8px 8px;
+    box-shadow: inset -4px 0 rgba(0,0,0,0.15);
+}
+
+.leg.left {
+    left: 4px;
+}
+
+.leg.right {
+    right: 4px;
+}
+
+/* różne ludki */
+
+.amongus:nth-child(1) {
+    --color: #ff3030;
+    left: 4%;
+    animation-duration: 8s;
+    animation-delay: 0s;
+}
+
+.amongus:nth-child(2) {
+    --color: #3498ff;
+    left: 14%;
+    animation-duration: 11s;
+    animation-delay: 2s;
+}
+
+.amongus:nth-child(3) {
+    --color: #39d353;
+    left: 25%;
+    animation-duration: 7s;
+    animation-delay: 4s;
+}
+
+.amongus:nth-child(4) {
+    --color: #a855f7;
+    left: 37%;
+    animation-duration: 10s;
+    animation-delay: 1s;
+}
+
+.amongus:nth-child(5) {
+    --color: #ffd21f;
+    left: 49%;
+    animation-duration: 8s;
+    animation-delay: 3s;
+}
+
+.amongus:nth-child(6) {
+    --color: #00d9ff;
+    left: 61%;
+    animation-duration: 12s;
+    animation-delay: 5s;
+}
+
+.amongus:nth-child(7) {
+    --color: #ff8a00;
+    left: 73%;
+    animation-duration: 9s;
+    animation-delay: 2s;
+}
+
+.amongus:nth-child(8) {
+    --color: #ff69b4;
+    left: 85%;
+    animation-duration: 11s;
+    animation-delay: 6s;
+}
+
+.amongus:nth-child(9) {
+    --color: #ffffff;
+    left: 96%;
+    animation-duration: 7s;
+    animation-delay: 1s;
+}
+
+@keyframes amongusFall {
+
+    0% {
+        transform:
+            translateY(-130px)
+            rotate(-25deg);
+    }
+
+    25% {
+        transform:
+            translateY(25vh)
+            translateX(35px)
+            rotate(70deg);
+    }
+
+    50% {
+        transform:
+            translateY(50vh)
+            translateX(-30px)
+            rotate(180deg);
+    }
+
+    75% {
+        transform:
+            translateY(75vh)
+            translateX(40px)
+            rotate(270deg);
+    }
+
+    100% {
+        transform:
+            translateY(115vh)
+            translateX(-20px)
+            rotate(360deg);
+    }
+}
+
+
+/* =========================
+   NAWIGACJA
+========================= */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 8%;
+
+    background: rgba(5, 7, 14, 0.85);
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #5865f2;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    position: relative;
+    z-index: 1;
+
+    min-height: 75vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+}
+
+.hero-icon {
+    font-size: 75px;
+    margin-bottom: 15px;
+
+    filter:
+        drop-shadow(0 0 20px rgba(255,255,255,0.25));
+
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.hero h1 {
+    font-size: clamp(55px, 10vw, 100px);
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 0 20px rgba(88,101,242,0.5);
+}
+
+.hero p {
+    max-width: 650px;
+
+    color: #c7c9d1;
+
+    font-size: 18px;
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   PRZYCISKI
+========================= */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 15px 24px;
+
+    border-radius: 10px;
+
+    background: #5865f2;
+
+    color: white;
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 25px rgba(88,101,242,0.25);
+
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+.btn:hover {
+    background: #4752c4;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(88,101,242,0.4);
+}
+
+.youtube {
+    background: #ff0000;
+
+    box-shadow:
+        0 8px 25px rgba(255,0,0,0.2);
+}
+
+.youtube:hover {
+    background: #cc0000;
+
+    box-shadow:
+        0 12px 30px rgba(255,0,0,0.35);
+}
+
+
+/* =========================
+   ZASADY
+========================= */
+
+section {
+    position: relative;
+    z-index: 1;
+}
+
+.rules {
+    padding: 90px 8%;
+}
+
+.rules h2 {
+    text-align: center;
+
+    font-size: 40px;
+
+    margin-bottom: 45px;
+}
+
+.rules-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+}
+
+.rule {
+    padding: 25px;
+
+    background: rgba(20,23,35,0.85);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 15px;
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.rule:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(88,101,242,0.6);
+}
+
+.rule span {
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 12px;
+}
+
+.rule h3 {
+    margin-bottom: 8px;
+}
+
+.rule p {
+    color: #b7bac5;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   DISCORD
+========================= */
+
+.discord {
+    position: relative;
+    z-index: 1;
+
+    text-align: center;
+
+    padding: 100px 20px;
+}
+
+.discord-box {
+    max-width: 750px;
+
+    margin: auto;
+
+    padding: 50px 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(88,101,242,0.2),
+            rgba(20,23,35,0.9)
+        );
+
+    border: 1px solid rgba(88,101,242,0.3);
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(10px);
+}
+
+.discord h2 {
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+.discord p {
+    color: #c7c9d1;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   STOPKA
+========================= */
+
+footer {
+    position: relative;
+    z-index: 1;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #777b89;
+
+    border-top:
+        1px solid rgba(255,255,255,0.06);
+}
+
+
+/* =========================
+   TELEFON
+========================= */
+
+@media (max-width: 600px) {
+
+    nav {
+        padding: 15px 5%;
+    }
+
+    nav a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .hero {
+        min-height: 70vh;
+        padding-top: 60px;
+    }
+
+    .hero-icon {
+        font-size: 60px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .rules {
+        padding: 70px 5%;
+    }
+
+    .rules h2,
+    .discord h2 {
+        font-size: 32px;
+    }
+
+    .amongus {
+        transform: scale(0.8);
+    }
+}
 </style>
 </head>
+
+
 <body>
-<nav><div class="logo">🛸 <span>Among Us</span></div><div><a href="#zasady">Zasady</a><a href="#discord">Discord</a></div></nav>
 
-<header class="hero">
-<div class="sus">🛸</div>
-<h1>Among Us</h1>
-<p>Witaj na naszym serwerze Discord! Znajdź ekipę, graj fair-play i pokaż, kto jest najlepszym Crewmate'em.</p>
-<a class="btn" href="https://discord.gg/reBgHF7zCT" target="_blank">💬 DOŁĄCZ NA DISCORDA</a>
-</header>
+<!-- SPADAJĄCE LUDZIKI AMONG US -->
 
-<section id="zasady">
-<h2>📜 Zasady serwera</h2>
-<div class="card">
-<div class="rule"><b>1. 🤝 Szanuj innych</b><br>Zakaz wyzywania, obrażania i prowokowania.</div>
-<div class="rule"><b>2. 🚫 Bez cheatów</b><br>Nie używaj cheatów, hacków ani niedozwolonych programów.</div>
-<div class="rule"><b>3. 🤫 Nie zdradzaj Impostora</b><br>Nie przekazuj żyjącym graczom informacji po swojej śmierci.</div>
-<div class="rule"><b>4. 🎙️ Zachowuj się na voice</b><br>Nie krzycz, nie zagłuszaj innych i nie przeszkadzaj w rozgrywce.</div>
-<div class="rule"><b>5. 📢 Bez spamu</b><br>Nie flooduj kanałów i nie oznaczaj bez potrzeby.</div>
-<div class="rule"><b>6. 🔒 Szanuj prywatność</b><br>Nie udostępniaj cudzych danych ani prywatnych rozmów.</div>
-<div class="rule"><b>7. 🧑‍💼 Szanuj administrację</b><br>Problemy zgłaszaj administracji zamiast rozpoczynać kłótnie.</div>
-<div class="rule"><b>8. ❤️ Dobra zabawa</b><br>Graj fair-play i pamiętaj, że najważniejsza jest dobra zabawa!</div>
+<div class="falling-heads">
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
+    <div class="amongus">
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
+
 </div>
+
+
+<!-- NAWIGACJA -->
+
+<nav>
+
+    <div class="logo">
+        🛸 Among Us
+    </div>
+
+    <div>
+        <a href="#zasady">Zasady</a>
+        <a href="#discord">Discord</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+        🚀
+    </div>
+
+    <h1>Among Us</h1>
+
+    <p>
+        Witaj na naszej stronie! Dołącz do naszego Discorda,
+        graj z ekipą i baw się razem z nami.
+    </p>
+
+    <div class="buttons">
+
+        <a
+            class="btn"
+            href="https://discord.gg/reBgHF7zCT"
+            target="_blank"
+        >
+            💬 DOŁĄCZ NA DISCORDA
+        </a>
+
+        <a
+            class="btn youtube"
+            href="https://youtube.com/@win_er_yt"
+            target="_blank"
+        >
+            ▶️ MÓJ YOUTUBE
+        </a>
+
+    </div>
+
 </section>
 
-<section id="discord">
-<div class="card" style="text-align:center">
-<h2>🚀 Dołącz do nas!</h2>
-<p>Wskakuj na serwer i zagraj z innymi.</p>
-<a class="btn" href="https://discord.gg/reBgHF7zCT" target="_blank">DOŁĄCZ NA DISCORDA</a>
-</div>
+
+<!-- ZASADY -->
+
+<section class="rules" id="zasady">
+
+    <h2>📜 Zasady</h2>
+
+    <div class="rules-grid">
+
+        <div class="rule">
+            <span>🚫</span>
+            <h3>Bez cheatów</h3>
+            <p>
+                Nie używaj cheatów ani innych programów
+                dających nieuczciwą przewagę.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>🤝</span>
+            <h3>Szanuj innych</h3>
+            <p>
+                Traktuj wszystkich graczy z szacunkiem.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>🎤</span>
+            <h3>Nie przeszkadzaj</h3>
+            <p>
+                Nie krzycz i nie spamuj podczas rozgrywki.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>🕵️</span>
+            <h3>Gra zgodnie z zasadami</h3>
+            <p>
+                Nie wykorzystuj bugów i błędów gry.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>💬</span>
+            <h3>Bez spamu</h3>
+            <p>
+                Nie spamuj wiadomościami ani oznaczeniami.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>🔇</span>
+            <h3>Nie zdradzaj informacji</h3>
+            <p>
+                Po śmierci nie zdradzaj innym informacji
+                dotyczących rozgrywki.
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>👽</span>
+            <h3>Baw się dobrze</h3>
+            <p>
+                Najważniejsza jest dobra zabawa!
+            </p>
+        </div>
+
+        <div class="rule">
+            <span>❤️</span>
+            <h3>Miła atmosfera</h3>
+            <p>
+                Dbajmy razem o dobrą atmosferę na serwerze.
+            </p>
+        </div>
+
+    </div>
+
 </section>
 
-<footer>© 2026 Among Us Discord • Strona społecznościowa, nieoficjalnie powiązana z grą.</footer>
+
+<!-- DISCORD -->
+
+<section class="discord" id="discord">
+
+    <div class="discord-box">
+
+        <h2>🚀 Dołącz do nas!</h2>
+
+        <p>
+            Wskakuj na Discorda i graj razem z nami.
+        </p>
+
+        <a
+            class="btn"
+            href="https://discord.gg/reBgHF7zCT"
+            target="_blank"
+        >
+            💬 DOŁĄCZ NA DISCORDA
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- STOPKA -->
+
+<footer>
+
+    © 2026 Among Us Discord • Wszelkie prawa zastrzeżone
+
+</footer>
+
 </body>
 </html>
